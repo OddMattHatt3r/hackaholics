@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         const chatBox = document.getElementById('chat-box');
         const chatForm = document.getElementById('chat-form');
@@ -34,12 +34,37 @@
             e.preventDefault();
             const message = messageInput.value.trim();
             if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.className = 'mb-2';
-                messageElement.textContent = message;
-                chatBox.appendChild(messageElement);
-                chatBox.scrollTop = chatBox.scrollHeight;
-                messageInput.value = '';
+            // Display the user's message
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'mb-2 text-end';
+            userMessageElement.textContent = message;
+            chatBox.appendChild(userMessageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Clear the input field
+            messageInput.value = '';
+
+            // Send the message to the server using $.ajax
+            $.ajax({
+                url: '/chatbot',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ message: message }),
+                success: function(data) {
+                    const botMessage = data.response;
+
+                    // Display the bot's message
+                    const botMessageElement = document.createElement('div');
+                    console.log(botMessage);
+                    botMessageElement.className = 'mb-2 text-start text-primary';
+                    botMessageElement.textContent = botMessage;
+                    chatBox.appendChild(botMessageElement);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
             }
         });
     </script>
