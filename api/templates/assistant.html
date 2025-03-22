@@ -42,7 +42,7 @@
             <!-- Email Field -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                 <div class="invalid-feedback">Please enter a valid email address.</div>
             </div>
 
@@ -77,26 +77,37 @@
         </form>
     </div>
 
-    <!-- JavaScript for Validation -->
+    <!-- JavaScript for Validation and Email Sending -->
 <script>
     document.getElementById('myForm').addEventListener('submit', function(event) {
         event.preventDefault();
         let form = event.target;
         let phoneInput = document.getElementById('phone');
         let phonePattern = /^\d{10}$/;
-
+        let formData = new FormData(form);
+        
         if (!phonePattern.test(phoneInput.value)) {
             phoneInput.classList.add('is-invalid');
         } else {
             phoneInput.classList.remove('is-invalid');
             phoneInput.classList.add('is-valid');
         }
-
+        
         if (!form.checkValidity()) {
             event.stopPropagation();
+            return;
         }
         
         form.classList.add('was-validated');
+
+        // Send form data via email
+        fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => alert('Form submitted successfully!'))
+        .catch(error => alert('Error sending email.'));
     });
 </script>
 </body>
