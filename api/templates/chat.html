@@ -20,6 +20,7 @@
     <meta name="twitter:creator" content="@CivAI">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <style>
     .dots {
@@ -51,7 +52,7 @@
 </style>
 <body>
     {% include 'navbar.html' %}
-    <div class="col-12 h-100 mt-0 rounded-0"  style="height:93vh !important;">
+    <div class="col-12 h-100 mt-0 rounded-0"  style="height:91vh !important;">
         <div class="card h-100 border-0">
             <div class="card-header d-flex text-center align-items-center justify-content-center bg-primary text-white rounded-0">
                 <h4>Chat Room</h4>
@@ -114,21 +115,18 @@
                     // Format the bot's message
                     const botMessageElement = document.createElement('div');
                     botMessageElement.className = 'mb-2 text-start text-primary mb-3';
+                    botMessageElement.style.display = 'inline-block';
+                    botMessageElement.style.backgroundColor = 'rgb(241, 241, 241)';
+                    botMessageElement.style.color = 'rgb(0, 0, 0)';
+                    botMessageElement.style.padding = '10px 15px';
+                    botMessageElement.style.borderRadius = '20px';
+                    botMessageElement.style.overflowWrap = 'break-word';
 
                     // Use innerHTML to preserve formatting for structured text
                     botMessageElement.innerHTML = botMessage.replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/-(.*?)\n/g, '<ul><li>$1</li></ul>')
                         .replace(/(\d+)\.\s(.*?)\n/g, '<ol><li>$2</li></ol>');
-
-                    // Ensure the message width is no more than 75%
-                    botMessageElement.style.display = 'inline-block';
-                    botMessageElement.style.backgroundColor = '#f1f1f1';
-                    botMessageElement.style.color = '#000';
-                    botMessageElement.style.padding = '10px 15px';
-                    botMessageElement.style.borderRadius = '20px';
-                    botMessageElement.style.maxWidth = '75%';
-                    botMessageElement.style.wordWrap = 'break-word';
 
                     chatBox.appendChild(botMessageElement);
                     chatBox.scrollTop = chatBox.scrollHeight;
