@@ -33,7 +33,12 @@
                 <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
                 <div class="invalid-feedback">Please enter your name.</div>
             </div>
-
+            <!-- Phone Number Field -->
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone Number</label>
+                 <input type="tel" class="form-control" id="phone" placeholder="Enter your 10-digit phone number" pattern="\d{10}" required>
+                 <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+            </div>
             <!-- Email Field -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -73,17 +78,26 @@
     </div>
 
     <!-- JavaScript for Validation -->
-    <script>
-        document.getElementById('myForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let form = event.target;
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        let form = event.target;
+        let phoneInput = document.getElementById('phone');
+        let phonePattern = /^\d{10}$/;
 
-            if (!form.checkValidity()) {
-                event.stopPropagation();
-            }
+        if (!phonePattern.test(phoneInput.value)) {
+            phoneInput.classList.add('is-invalid');
+        } else {
+            phoneInput.classList.remove('is-invalid');
+            phoneInput.classList.add('is-valid');
+        }
 
-            form.classList.add('was-validated');
-        });
-    </script>
+        if (!form.checkValidity()) {
+            event.stopPropagation();
+        }
+        
+        form.classList.add('was-validated');
+    });
+</script>
 </body>
 </html>
