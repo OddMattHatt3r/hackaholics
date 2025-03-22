@@ -36,7 +36,7 @@
             <!-- Phone Number Field -->
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
-                 <input type="tel" class="form-control" id="phone" placeholder="Enter your 10-digit phone number" pattern="\d{10}" required>
+                 <input type="tel" class="form-control" oninput="formatPhoneNumber(this)" id="phone" placeholder="Enter your 10-digit phone number" required>
                  <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
             </div>
             <!-- Email Field -->
@@ -109,6 +109,21 @@
         .then(data => alert('Form submitted successfully!'))
         .catch(error => alert('Error sending email.'));
     });
+
+    function formatPhoneNumber(input) {
+        // Remove all non-digit characters
+        const digits = input.value.replace(/\D/g, '');
+
+        // Format the number as (XXX) XXX-XXXX
+        const formattedNumber = digits
+            .replace(/^(\d{3})(\d{0,3})(\d{0,4}).*/, (_, areaCode, firstPart, secondPart) => {
+                return `(${areaCode})${firstPart ? ' ' + firstPart : ''}${secondPart ? '-' + secondPart : ''}`;
+            });
+
+        // Set the formatted value back to the input
+        input.value = formattedNumber;
+    }
+
 </script>
 </body>
 </html>
