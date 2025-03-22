@@ -147,72 +147,33 @@
         const chatBox = document.getElementById('chat-box');
         const chatForm = document.getElementById('chat-form');
         const messageInput = document.getElementById('message');
-        const fileInput = document.getElementById('fileInput');
 
         chatForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
             const message = messageInput.value.trim();
-            const files = Array.from(fileInput.files);
-
-            if (!message && files.length === 0) return; // Nothing to send
-
-            // Display user message bubble if message is provided
             if (message) {
-                const userMessageElement = document.createElement('div');
-                userMessageElement.className = 'mb-2 text-end mb-3';
-                const messageBubble = document.createElement('div');
-                messageBubble.style.display = 'inline-block';
-                messageBubble.style.backgroundColor = '#007bff';
-                messageBubble.style.color = 'white';
-                messageBubble.style.padding = '10px 15px';
-                messageBubble.style.borderRadius = '20px';
-                messageBubble.style.maxWidth = '75%';
-                messageBubble.style.wordWrap = 'break-word';
-                messageBubble.style.overflowWrap = 'break-word';
-                messageBubble.style.marginLeft = 'auto'; // Align to the right
-                messageBubble.textContent = message;
+            // Display the user's message as a text bubble
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'mb-2 text-end mb-3';
+            const messageBubble = document.createElement('div');
+            messageBubble.style.display = 'inline-block';
+            messageBubble.style.backgroundColor = '#007bff';
+            messageBubble.style.color = 'white';
+            messageBubble.style.padding = '10px 15px';
+            messageBubble.style.borderRadius = '20px';
+            messageBubble.style.maxWidth = '100%';
+            messageBubble.style.wordWrap = 'break-word';
+            messageBubble.style.overflowWrap = 'break-word';
+            messageBubble.textContent = message;
 
+            userMessageElement.appendChild(messageBubble);
+            chatBox.appendChild(userMessageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-                // Handle file previews if files are attached
-                if (files.length > 0) {
-                    const filePreviewContainer = document.createElement('div');
-                    filePreviewContainer.className = 'mt-2 d-flex justify-content-end mb-3'; // Align to the right
-
-                    files.forEach(file => {
-                        if (file.type.startsWith('image/')) {
-                            const reader = new FileReader();
-                            reader.onload = function (e) {
-                                const img = document.createElement('img');
-                                img.src = e.target.result;
-                                img.style.maxWidth = '100px';
-                                img.style.maxHeight = '100px';
-                                img.className = 'img-thumbnail me-2';
-                                filePreviewContainer.appendChild(img);
-                            };
-                            reader.readAsDataURL(file);
-                        } else {
-                            const fileNameText = document.createElement('div');
-                            fileNameText.textContent = `📎 ${file.name}`;
-                            fileNameText.className = 'small border rounded px-2 py-1 bg-light me-2 ';
-                            filePreviewContainer.appendChild(fileNameText);
-                        }
-                    });
-
-                    userMessageElement.appendChild(filePreviewContainer);
-                }
-                userMessageElement.appendChild(messageBubble);
-
-                chatBox.appendChild(userMessageElement);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-
-            // Clear input and preview
-            document.getElementById('file-preview').innerHTML = '';
+            // Clear the input field
             messageInput.value = '';
-            fileInput.value = '';
 
-            // Add a placeholder for bot reply
+            // Add a placeholder for the bot's response
             const placeholderElement = document.createElement('div');
             placeholderElement.className = 'mb-2 text-start mb-3';
             const logoImage = document.createElement('img');
@@ -226,25 +187,19 @@
             chatBox.appendChild(placeholderElement);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Create FormData to send message and files
-            const formData = new FormData();
-            formData.append('message', message);
-            files.forEach((file, index) => {
-                formData.append(`file${index}`, file); // Unique key per file
-            });
-
+            // Send the message to the server using $.ajax
             $.ajax({
                 url: '/chatbot',
                 type: 'POST',
-                data: formData,
-                processData: false,      // Don’t process the files
-                contentType: false,      // Let the browser set the content type
+                contentType: 'application/json',
+                data: JSON.stringify({ message: message }),
                 success: function(data) {
-                    console.log(data);
+                    const botMessage = data.response;
 
+                    // Remove the placeholder
                     chatBox.removeChild(placeholderElement);
 
-                    const botMessage = data.assistant_reply;
+                    // Format the bot's message
                     const botMessageElement = document.createElement('div');
                     botMessageElement.className = 'mb-2 text-start text-primary mb-3 CivAI';
                     botMessageElement.style.display = 'inline-block';
@@ -253,31 +208,38 @@
                     botMessageElement.style.padding = '10px 15px';
                     botMessageElement.style.borderRadius = '20px';
                     botMessageElement.style.overflowWrap = 'break-word';
+
+                    // Use innerHTML to preserve formatting for structured text
                     botMessageElement.innerHTML = botMessage.replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                         .replace(/###\s?(.*?)\n/g, '<h3>$1</h3>')
                         .replace(/-(.*?)\n/g, '<ul><li>$1</li></ul>')
-                        .replace(/(\d+)\.\s(.*?)\n/g, '<ol><li>$2</li></ol>')
-                        .replace(/【.*?】/g, ''); // Remove file references like 【...】
+                        .replace(/(\d+)\.\s(.*?)\n/g, '<ol><li>$2</li></ol>');
 
                     chatBox.appendChild(botMessageElement);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 },
                 error: function(xhr, status, error) {
+                    console.error('Error:', error);
+
+                    // Remove the placeholder and display an error message
                     chatBox.removeChild(placeholderElement);
                     const errorMessageElement = document.createElement('div');
                     errorMessageElement.className = 'mb-2 text-start text-danger';
+                    errorMessageElement.textContent = 'Error: Unable to get a response from the bot.';
                     const messages = [
                         "Oops! CivAI tripped over some data. Please try again.",
                         "Yikes! CivAI fell down the algorithm stairs. Trying to recover...",
                         "Uh-oh! CivAI had a minor crash — no worries, it's rebooting its brain.",
                         "CivAI got confused and is rechecking its notes. Try again in a sec!"
                     ];
+
                     errorMessageElement.textContent = messages[Math.floor(Math.random() * messages.length)];
                     chatBox.appendChild(errorMessageElement);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
             });
+            }
         });
     </script>
 </body>
