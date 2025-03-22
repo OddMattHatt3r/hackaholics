@@ -44,6 +44,13 @@
             // Clear the input field
             messageInput.value = '';
 
+            // Add a placeholder for the bot's response
+            const placeholderElement = document.createElement('div');
+            placeholderElement.className = 'mb-2 text-start text-muted';
+            placeholderElement.textContent = 'Bot is typing...';
+            chatBox.appendChild(placeholderElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
             // Send the message to the server using $.ajax
             $.ajax({
                 url: '/chatbot',
@@ -53,16 +60,32 @@
                 success: function(data) {
                     const botMessage = data.response;
 
-                    // Display the bot's message
+                    // Remove the placeholder
+                    chatBox.removeChild(placeholderElement);
+
+                    // Format the bot's message
                     const botMessageElement = document.createElement('div');
-                    console.log(botMessage);
                     botMessageElement.className = 'mb-2 text-start text-primary';
-                    botMessageElement.textContent = botMessage;
+
+                    // Use innerHTML to preserve formatting for structured text
+                    botMessageElement.innerHTML = botMessage.replace(/\n/g, '<br>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/-(.*?)\n/g, '<ul><li>$1</li></ul>')
+                        .replace(/(\d+)\.\s(.*?)\n/g, '<ol><li>$2</li></ol>');
+
                     chatBox.appendChild(botMessageElement);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 },
                 error: function(xhr, status, error) {
                     console.error('Error:', error);
+
+                    // Remove the placeholder and display an error message
+                    chatBox.removeChild(placeholderElement);
+                    const errorMessageElement = document.createElement('div');
+                    errorMessageElement.className = 'mb-2 text-start text-danger';
+                    errorMessageElement.textContent = 'Error: Unable to get a response from the bot.';
+                    chatBox.appendChild(errorMessageElement);
+                    chatBox.scrollTop = chatBox.scrollHeight;
                 }
             });
             }
