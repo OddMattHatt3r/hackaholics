@@ -162,6 +162,7 @@
                     // Use innerHTML to preserve formatting for structured text
                     botMessageElement.innerHTML = botMessage.replace(/\n/g, '<br>')
                         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/###\s?(.*?)\n/g, '<h3>$1</h3>')
                         .replace(/-(.*?)\n/g, '<ul><li>$1</li></ul>')
                         .replace(/(\d+)\.\s(.*?)\n/g, '<ol><li>$2</li></ol>');
 
