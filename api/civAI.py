@@ -29,53 +29,51 @@ def chat():
 @app.route('/chatbot', methods=['POST'])
 def chatbot():
     data = request.get_json()
-    print("Received data:", data)  # Debugging print
     user_message = data.get('message')
 
     if not user_message:
-        print("No message provided in the request.")  # Debugging print
         return jsonify({"error": "No message provided"}), 400
 
-    # Retrieve your assistant
     assistant_id = "asst_8c23L0feKA9FJpQVjvvnKVQA"
-    print("Using assistant ID:", assistant_id)  # Debugging print
-    thread = client.beta.threads.create()
-    print("Created thread with ID:", thread.id)  # Debugging print
 
-    # Send user message to the thread
+    # Step 1: Retrieve or create a thread ID
+    if 'thread_id' not in session:
+        thread = client.beta.threads.create()
+        session['thread_id'] = thread.id
+        print("Created new thread:", thread.id)
+    else:
+        thread_id = session['thread_id']
+        print("Using existing thread:", thread_id)
+        thread = client.beta.threads.retrieve(thread_id)
+
+    # Step 2: Send user message to the thread
     client.beta.threads.messages.create(
         thread_id=thread.id,
         role="user",
         content=user_message,
     )
-    print("Sent user message to thread.")  # Debugging print
 
-    # Run the assistant on that thread
+    # Step 3: Run the assistant
     run = client.beta.threads.runs.create(
         thread_id=thread.id,
         assistant_id=assistant_id
     )
-    print("Started assistant run with ID:", run.id)  # Debugging print
 
-    # Wait for the run to complete
+    # Step 4: Wait for the assistant to finish
     while True:
         run_status = client.beta.threads.runs.retrieve(
             thread_id=thread.id,
             run_id=run.id,
         )
-        print("Run status:", run_status.status)  # Debugging print
         if run_status.status == "completed":
             break
         elif run_status.status in ["failed", "cancelled", "expired"]:
-            print(f"Run failed with status: {run_status.status}")  # Debugging print
             return jsonify({"error": f"Run {run_status.status}"}), 500
         time.sleep(1)
 
-    # Get assistant's message
+    # Step 5: Get the latest assistant message
     messages = client.beta.threads.messages.list(thread_id=thread.id)
-    print("Retrieved messages:", messages)  # Debugging print
     assistant_reply = messages.data[0].content[0].text.value
-    print("Assistant reply:", assistant_reply)  # Debugging print
 
     return jsonify({"response": assistant_reply})
 
@@ -102,6 +100,6 @@ def view_file(relpath):
 
     return jsonify({"response": assistant_reply})
 
-    
+
 if __name__ == '__main__':
     app.run(debug=True)
