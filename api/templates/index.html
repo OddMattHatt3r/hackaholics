@@ -1,54 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | CivAI – Making Tech Easy for Everyone</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | CivAI – Making Tech Easy for Everyone</title>
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Home | CivAI – Making Tech Easy for Everyone">
-    <meta property="og:description" content="Empowering urban communities through technology, learning, and smart collaboration.">
-    <meta property="og:image" content="https://civai-eight.vercel.app/view-file/api/templates/CivAI.jpg">
-    <meta property="og:url" content="/">
-    <meta property="og:site_name" content="CivAI">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Home | CivAI – Making Tech Easy for Everyone">
+  <meta property="og:description" content="Empowering urban communities through technology, learning, and smart collaboration.">
+  <meta property="og:image" content="https://civai-eight.vercel.app/view-file/api/templates/CivAI.jpg">
+  <meta property="og:url" content="/">
+  <meta property="og:site_name" content="CivAI">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Home | CivAI – Making Tech Easy for Everyone">
-    <meta name="twitter:description" content="Empowering urban communities through technology, learning, and smart collaboration.">
-    <meta name="twitter:image" content="https://civai-eight.vercel.app/view-file/api/templates/CivAI.jpg">
-    <meta name="twitter:site" content="@CivAI">
-    <meta name="twitter:creator" content="@CivAI">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Home | CivAI – Making Tech Easy for Everyone">
+  <meta name="twitter:description" content="Empowering urban communities through technology, learning, and smart collaboration.">
+  <meta name="twitter:image" content="https://civai-eight.vercel.app/view-file/api/templates/CivAI.jpg">
+  <meta name="twitter:site" content="@CivAI">
+  <meta name="twitter:creator" content="@CivAI">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body class="vh-100">
-    {% include 'navbar.html' %}
+  {% include 'navbar.html' %}
 
-    <div class="container d-flex align-items-center justify-content-center flex-column text-center mt-0 gap-4" style="height:85vh !important;">
-        <img src="/view-file/api/templates/CivAI.jpg" class="img-fluid rounded-5" style="height: 20vh;">
-        <div>
-            <h1>Welcome to CivAI</h1>
-            <p class="lead">Empowering urban communities through technology, learning, and smart collaboration.</p>
-        </div>
-        <div class="d-flex gap-2">
-            <a href="/chat" class="btn btn-primary d-flex align-items-center justify-content-center icon-link icon-link-hover">
-                Ask Civ
-                <i class="bi bi-arrow-right icon-link-hover" style="transition: transform 0.2s;"></i>
-            </a>
-            <a href="/assistant" class="btn btn-primary d-flex align-items-center justify-content-center icon-link icon-link-hover">
-                Ask a Person 
-                <i class="bi bi-arrow-right icon-link-hover" style="transition: transform 0.2s;"></i>
-            </a>
-        </div>
+  <!-- Hero Section -->
+  <div class="container d-flex align-items-center justify-content-center flex-column text-center mt-0 gap-4" style="height:85vh !important;">
+    <img src="/view-file/api/templates/CivAI.jpg" class="img-fluid rounded-5" style="height: 20vh;">
+    <div>
+      <h1>Welcome to CivAI</h1>
+      <p class="lead">Empowering urban communities through technology, learning, and smart collaboration.</p>
     </div>
+    <div class="d-flex gap-2">
+      <a href="/chat" class="btn btn-primary d-flex align-items-center justify-content-center icon-link icon-link-hover">
+        Ask Civ
+        <i class="bi bi-arrow-right icon-link-hover" style="transition: transform 0.2s;"></i>
+      </a>
+      <a href="/assistant" class="btn btn-primary d-flex align-items-center justify-content-center icon-link icon-link-hover">
+        Ask a Person 
+        <i class="bi bi-arrow-right icon-link-hover" style="transition: transform 0.2s;"></i>
+      </a>
+    </div>
+  </div>
 
-    <footer class="bg-light text-center py-3 m-0" style="height:7vh !important;">
-        <p>&copy; 2025 CivAI. All rights reserved.</p>
-    </footer>
+  <!-- What is CivAI Section -->
+  <div class="d-flex align-items-center justify-content-center flex-column text-center m-0 py-5 vw-100 gap-4" style="background-color: #f5f5f5;">
+    <div>
+      <h1 class="m-0">What is CivAI?</h1>
+      <h6 class="text-muted">Bridging the Urban Tech Divide</h6>
+    </div>
+    <p class="col-10">
+        As cities become smarter and more connected, access to technology remains a crucial factor in ensuring urban residents can fully engage with these advancements. CivAI is designed to provide 24/7 support to urban dwellers who may need additional guidance in navigating emerging technologies. Our AI-powered chatbot serves as an accessible, on-demand assistant, guiding users to not only troubleshoot issues but also to educate and help them understand the latest urban tech innovations.
+    </p>
+  </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Essay Section -->
+  <div class="px-5 text-start d-flex align-items-start justify-content-center flex-column text-center m-0 py-5 vw-100 gap-4" style="background-color: #f5f5f5;">
+    <div class="row">
+      <div class="col">
+        <h1 class="text-center mb-5">How CivAI Aligns with Key Hackathon Themes</h1>
+        <h4 class="text-start">Smart Cities & Urban Informatics</h4>
+        <p class="text-start">
+          CivAI enhances the way residents interact with smart city infrastructure by providing real-time support for navigating urban services, from public Wi-Fi troubleshooting to IoT devices at home. By leveraging AI-driven insights, we help individuals make the most out of the technology in their possession.
+        </p>
+        <h4 class="text-start">Human-Computer Interaction (HCI) & Public Services</h4>
+        <p class="text-start">
+          A major challenge in urban technology is accessibility. CivAI simplifies interactions between users and their devices by interpreting manuals, forums, and training modules, and then translating them into simplified language that the average user can easily understand. Whether it’s setting up IoT devices, improving home networks, or navigating digital public services, CivAI ensures that technical information is inclusive and digestible.
+        </p>
+        <h4 class="text-start">AI & Machine Learning for Urban Planning</h4>
+        <p class="text-start">
+          By analyzing common technical challenges faced by city residents, CivAI can contribute to improving digital inclusion strategies. Our chatbot could eventually integrate with urban planning datasets to offer predictive insights, helping city administrators understand tech-related needs and barriers in different communities.
+        </p>
+        <h3 class="text-start">Innovating for a Smarter Urban Future</h3>
+        <p class="text-start pb-5">
+          Through this hackathon, our goal is to empower urban residents by reducing the digital divide and ensuring that the technology shaping modern cities is truly accessible to all. CivAI is more than just a chatbot. It’s a bridge between cutting-edge technology and the people who rely on it every day.
+        </p>
+        <h1 class="text-center my-5">What Inspired CivAI?</h1>
+        <p class="text-start">
+          Technology is supposed to make life easier, but for too many people, it does the opposite. If you’ve ever struggled to set up a device, fix an internet issue, or navigate an online platform, you know how frustrating it can be. Now imagine that frustration amplified—if you’re a student with special needs, a teacher trying to integrate technology into your classroom with little support, or a family without reliable internet access.
+        </p>
+        <p class="text-start">
+          During the COVID-19 pandemic, millions of students were expected to shift to online learning, yet 30% of K-12 students lacked home internet access or a proper device (Starks & Reich, 2023). Schools scrambled for solutions—some even turned school buses into Wi-Fi hotspots to serve low-income neighborhoods (Aitken, 2020). But the issue wasn’t just access. Even when students had the right tools, many didn’t have the guidance to use them effectively. Special education programs, in particular, were left behind because the platforms weren’t designed with accessibility in mind.
+        </p>
+        <p class="text-start">
+          That’s why we built CivAI. To make technology more understandable, accessible, and human-centered. Our chatbot is designed for real people with real problems, breaking down complex tech issues into simple, actionable solutions. Whether it’s troubleshooting a smart home device, setting up a home network, or navigating a new app, CivAI helps users stay connected in a world that’s increasingly digital.
+        </p>
+        <p class="text-start mb-5">
+          So here’s our question for you: <strong>If technology is meant to connect us, why are so many still left out?</strong>
+        </p>
+        <h4 class="text-center mt-5">Sources:</h4>
+        <p class="text-start text-muted" style="font-size: 0.9rem;"></p>
+          Starks, A. C., & Reich, S. M. (2023). “What about special ed?“: Barriers and enablers for teaching with technology in special education. Computers & Education, 193, 104665.<br>
+          Aitken, P. (2020) School districts deploy buses as Wi-Fi hotspots to support remote learning: report. Fox News, <a href="https://www.foxnews.com/us/school-buses-wi-fi-hotspots-support-remote-learning?msockid=1ba2edc40b8668d81bc3f8db0ac569c1" target="_blank">https://www.foxnews.com/us/school-buses-wi-fi-hotspots-support-remote-learning</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="bg-light text-center py-3 m-0" style="height:7vh !important;background-color: #f5f5f5 !important;">
+    <p>&copy; 2025 CivAI. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
