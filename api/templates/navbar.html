@@ -1,7 +1,9 @@
+
 <style>
     :root {
         --primary-color: #1a2842;
     }
+
     .text-primary {
         color: var(--primary-color) !important;
     }
@@ -12,13 +14,38 @@
         background-color: var(--primary-color);
         border-color: var(--primary-color);
     }
-    .btn-primary:hover {
+    .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    .btn-primary:hover,
+    .btn-outline-primary:hover {
+        color: white;
+    }
+    .btn-primary:focus,
+    .btn-outline-primary:focus {
+        box-shadow: 0 0 0 0.25rem rgba(26, 40, 66, 0.5);
+    }
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus {
         background-color: #0d1521;
         border-color: #0d1521;
     }
-    .btn-primary:focus {
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus {
+        color: white;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus {
         box-shadow: 0 0 0 0.25rem rgba(26, 40, 66, 0.5);
     }
+    
     .navbar {
         background-color: var(--primary-color);
     }
@@ -48,7 +75,10 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/chat">Chat</a>
+                    <a class="nav-link" href="/chat">Ask Civ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/assistant">Ask a Person</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
