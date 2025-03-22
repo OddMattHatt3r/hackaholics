@@ -1,4 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #1a2842;">
+<style>
+    :root {
+        --primary-color: #1a2842;
+    }
+    .bg-primary {
+        background-color: var(--primary-color) !important;
+    }
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    .btn-primary:hover {
+        background-color: #0d1521;
+        border-color: #0d1521;
+    }
+    .btn-primary:focus {
+        box-shadow: 0 0 0 0.25rem rgba(26, 40, 66, 0.5);
+    }
+    .navbar {
+        background-color: var(--primary-color);
+    }
+    .navbar .navbar-brand img {
+        height: 7vh;
+    }
+    .navbar .nav-link {
+        color: white;
+    }
+    .navbar .nav-link:hover {
+        color: white;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #1a2842;height:7vh !important;">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><img src="/view-file/api/templates/CivAI.jpg" style="height:7vh;"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,10 +39,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="/chat">Chat</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
