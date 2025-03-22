@@ -74,7 +74,6 @@ def chatbot():
     # Step 5: Get the latest assistant message
     messages = client.beta.threads.messages.list(thread_id=thread.id)
     assistant_reply = messages.data[0].content[0].text.value
-
     return jsonify({"response": assistant_reply})
 
 @app.route('/view-file/<path:relpath>')

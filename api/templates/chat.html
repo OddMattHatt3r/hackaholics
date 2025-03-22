@@ -176,7 +176,14 @@
                     chatBox.removeChild(placeholderElement);
                     const errorMessageElement = document.createElement('div');
                     errorMessageElement.className = 'mb-2 text-start text-danger';
-                    errorMessageElement.textContent = 'Error: Unable to get a response from the bot.';
+                    const messages = [
+                        "Oops! CivAI tripped over some data. Please try again.",
+                        "Yikes! CivAI fell down the algorithm stairs. Trying to recover...",
+                        "Uh-oh! CivAI had a minor crash — no worries, it's rebooting its brain.",
+                        "CivAI got confused and is rechecking its notes. Try again in a sec!"
+                    ];
+
+                    errorMessageElement.textContent = messages[Math.floor(Math.random() * messages.length)];
                     chatBox.appendChild(errorMessageElement);
                     chatBox.scrollTop = chatBox.scrollHeight;
                 }
