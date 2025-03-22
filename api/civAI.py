@@ -67,6 +67,31 @@ def chatbot():
     messages = client.beta.threads.messages.list(thread_id=thread.id)
     assistant_reply = messages.data[0].content[0].text.value
 
+    from flask import send_file, abort
+import os
+
+
+@app.route('/view-file/<path:relpath>')
+def view_file(relpath):
+    # Get the full absolute path from relative path
+    file_path = os.path.abspath(relpath)
+
+    # Security check: ensure the file path is within current working directory
+    root_dir = os.getcwd()
+    if not file_path.startswith(root_dir):
+        abort(403, description="Forbidden: Invalid file path.")
+
+    # Check if the file exists and is a file
+    if not os.path.isfile(file_path):
+        abort(404, description=f"File not found: {file_path}")
+
+    # Serve the file inline
+    try:
+        return send_file(file_path, as_attachment=False)
+    except Exception as e:
+        print(f"Error: {e}")
+        abort(500, description="Internal server error.")
+
     return jsonify({"response": assistant_reply})
 if __name__ == '__main__':
     app.run(debug=True)
